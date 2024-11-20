@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MENU_RESTO_BAR_6.Models.Producto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="menu-group">
+<h1>Nuestro Menu</h1>
+    <div class="btn btn-primary">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.categoria)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoria)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
