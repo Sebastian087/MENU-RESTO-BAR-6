@@ -3,14 +3,18 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Reservas</h1>
 
+
+<div class="menu-group">
 <p>
-    <a asp-action="Create">Crear Nueva Reserva</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarioEmail)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.CantPersonas)
             </th>
@@ -26,6 +30,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarioEmail)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CantPersonas)
             </td>
@@ -44,3 +51,4 @@
 }
     </tbody>
 </table>
+</div>

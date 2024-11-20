@@ -9,12 +9,14 @@ namespace MENU_RESTO_BAR_6.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReservaId { get; set; }
-        
         [Required]
-        public required Usuario Usuario { get; set; }
+        public string UsuarioEmail { get; set; }
+        public Usuario? Usuario { get; set; }
 
         [Required]
         public int CantPersonas { get; set; }
+
+        [Required(ErrorMessage = "La fecha y la hora son obligatorias")]
         public DateTime FechaReserva { get; set; }
         public bool Confirmada { get; set; }
     }

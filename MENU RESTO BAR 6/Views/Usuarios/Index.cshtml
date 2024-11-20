@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
+<div class="menu-group">
+<h1>Nuestra gente de confianza</h1>
 
 <p>
     <a asp-action="Create">Crear Nuevo Usuario</a>
@@ -17,9 +17,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contraseña)
             </th>
             <th></th>
         </tr>
@@ -34,9 +31,6 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contraseña)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.UsuarioId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.UsuarioId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.UsuarioId">Delete</a>
@@ -45,3 +39,4 @@
 }
     </tbody>
 </table>
+</div>

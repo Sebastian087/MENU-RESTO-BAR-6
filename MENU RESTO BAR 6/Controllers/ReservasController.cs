@@ -43,6 +43,33 @@ namespace MENU_RESTO_BAR_6.Controllers
             return View(reserva);
         }
 
+        [HttpPost]
+        public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime fechaReservada)
+        {
+            // Buscar usuario por email
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
+            if (usuario == null)
+            {
+                return NotFound("Usuario no encontrado.");
+            }
+
+            // Crear nueva reserva asociada al usuario
+            var nuevaReserva = new Reserva
+            {
+                UsuarioEmail = usuarioEmail,
+                Usuario = usuario,
+                CantPersonas = cantPersonas,
+                FechaReserva = fechaReservada,
+                Confirmada = false // Inicia como no confirmada
+            };
+
+            // Guardar la reserva en la base de datos
+            _context.Reservas.Add(nuevaReserva);
+            _context.SaveChanges();
+
+            return Ok("Reserva creada con éxito.");
+        }
+
         // GET: Reservas/Create
         public IActionResult Create()
         {
@@ -54,7 +81,7 @@ namespace MENU_RESTO_BAR_6.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservaId,CantPersonas,FechaReserva,Confirmada")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("ReservaId,UsuarioEmail,CantPersonas,FechaReserva,Confirmada")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +113,7 @@ namespace MENU_RESTO_BAR_6.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CantPersonas,FechaReserva,Confirmada")] Reserva reserva)
+        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,UsuarioEmail,CantPersonas,FechaReserva,Confirmada")] Reserva reserva)
         {
             if (id != reserva.ReservaId)
             {

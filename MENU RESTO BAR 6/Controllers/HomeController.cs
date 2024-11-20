@@ -24,6 +24,15 @@ namespace MENU_RESTO_BAR_6.Controllers
 
             return View();
         }
+
+        public IActionResult Contacto()
+        {
+            //var menuItems = _context.Producto
+            //.OrderBy(m => m.Nombre)
+            // .ToList();
+
+            return View();
+        }
         public IActionResult Reserva() {
 
             return View();
