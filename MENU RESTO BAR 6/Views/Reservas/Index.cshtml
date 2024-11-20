@@ -6,8 +6,14 @@
 
 
 <div class="menu-group">
+<h2>Reservas</h2>
 <p>
-    <a asp-action="Create">Create New</a>
+(Si no tienes un usuario debes registrate para hacer una reserva)
+<br/>
+<a href="@Url.Action("Create", "Usuarios")" class="btn btn-primary">Crear Una Cuenta</a>
+<br/>
+<a href="@Url.Action("Create", "Reservas")" class="btn btn-primary">Haz tu reserva aquí</a>
+<br/>
 </p>
 <table class="table">
     <thead>
