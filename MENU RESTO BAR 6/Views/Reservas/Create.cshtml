@@ -1,18 +1,10 @@
 ﻿@model MENU_RESTO_BAR_6.Models.Reserva
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Reservar";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
+<div class="menu-group">
 <h4>Reserva</h4>
 <hr />
 <div class="row">
@@ -48,5 +40,4 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-</body>
-</html>
+</div>

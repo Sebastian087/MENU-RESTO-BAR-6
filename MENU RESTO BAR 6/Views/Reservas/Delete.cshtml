@@ -1,21 +1,11 @@
 ﻿@model MENU_RESTO_BAR_6.Models.Reserva
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Cancelar";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-
-<h3>Are you sure you want to delete this?</h3>
+<div class="menu-group">
+<h3>¿Estás seguro que querés cancelar tu reserva?</h3>
 <div>
-    <h4>Reserva</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -50,5 +40,4 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
-</body>
-</html>
+</div>
