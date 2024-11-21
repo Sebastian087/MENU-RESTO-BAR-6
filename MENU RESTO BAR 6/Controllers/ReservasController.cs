@@ -66,6 +66,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             // Guardar la reserva en la base de datos
             _context.Reservas.Add(nuevaReserva);
             _context.SaveChanges();
+            
 
             return Ok("Reserva creada con éxito.");
         }
