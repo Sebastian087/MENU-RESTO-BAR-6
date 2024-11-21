@@ -50,7 +50,8 @@ namespace MENU_RESTO_BAR_6.Controllers
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
             if (usuario == null)
             {
-                return NotFound("Usuario no encontrado.");
+                TempData["ErrorMessage"] = "Usuario no encontrado.";
+                return RedirectToAction("Index", "Reservas");
             }
 
             // Crear nueva reserva asociada al usuario
@@ -66,9 +67,8 @@ namespace MENU_RESTO_BAR_6.Controllers
             // Guardar la reserva en la base de datos
             _context.Reservas.Add(nuevaReserva);
             _context.SaveChanges();
-            
-
-            return Ok("Reserva creada con éxito.");
+            TempData["SuccessMessage"] = "Reserva creada con exito.";
+            return RedirectToAction("Index", "Reservas");
         }
 
         // GET: Reservas/Create

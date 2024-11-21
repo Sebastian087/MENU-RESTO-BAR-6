@@ -3,7 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>alert('@TempData["SuccessMessage"]');</script>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>alert('@TempData["ErrorMessage"]');</script>
+}
 
 <div class="menu-group">
 <h2>Reservas</h2>
@@ -19,13 +26,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UsuarioEmail)
+                Email de Usuario que reservo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CantPersonas)
+                Personas Citadas
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaReserva)
+                Fecha y Horario
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Confirmada)
@@ -50,7 +57,6 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ReservaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.ReservaId">Detalles</a> |
                 <a asp-action="Delete" asp-route-id="@item.ReservaId">Cancelar</a>
             </td>
         </tr>
