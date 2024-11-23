@@ -29,11 +29,11 @@
                 <input asp-for="CantPersonas" class="form-control" />
                 <span asp-validation-for="CantPersonas" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
-                <input asp-for="FechaReserva" class="form-control" />
-                <span asp-validation-for="FechaReserva" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label for="FechaReserva">Fecha y Hora de la Reserva</label>
+                    <input asp-for="FechaReserva" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="FechaReserva" class="text-danger"></span>
+                </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

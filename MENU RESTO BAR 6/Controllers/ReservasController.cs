@@ -46,7 +46,10 @@ namespace MENU_RESTO_BAR_6.Controllers
         [HttpPost]
         public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime fechaReservada)
         {
-            // Buscar usuario por email
+        
+
+
+           // Buscar usuario por email
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
             if (usuario == null)
             {
