@@ -1,0 +1,25 @@
+﻿@model MENU_RESTO_BAR_6.Models.Cancelacion
+
+<h2>Cancelar Reserva</h2>
+
+<form asp-action="CancelarReserva" method="post">
+    <input type="hidden" asp-for="ReservaId" />
+
+    <div class="form-group">
+        <label for="Motivo">Motivo de la Cancelación</label>
+        <textarea class="form-control" asp-for="Motivo" rows="3" required></textarea>
+        <span asp-validation-for="Motivo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Cancelar Reserva</button>
+</form>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+}

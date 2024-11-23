@@ -4,6 +4,11 @@
     ViewData["Title"] = "Reservar";
 }
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>alert('@TempData["ErrorMessage"]');</script>
+}
+
 <div class="menu-group">
 <h4>Reserva</h4>
 <hr />

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Reserva>
+
+<h2>Reservas del Usuario</h2>
+
+@if (Model == null)
+{
+    <p>No se encontro el Usuario.</p>
+}
+else if (!Model.Any())
+{
+    <p>No se encontraron reservas para este usuario.</p>
+}
+else
+{
+    <p>Hay @Model.Count() reservas.</p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Fecha Reservada</th>
+                <th>Cantidad de Personas</th>
+                <th>Confirmada</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in Model)
+            {
+                <tr>
+                    <td>@reserva.ReservaId</td>
+                    <td>@reserva.UsuarioEmail</td>
+                    <td>@reserva.FechaReserva.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@reserva.CantPersonas</td>
+                    <td>@(reserva.Confirmada ? "Sí" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

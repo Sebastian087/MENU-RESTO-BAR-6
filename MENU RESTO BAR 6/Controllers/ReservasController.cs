@@ -44,14 +44,18 @@ namespace MENU_RESTO_BAR_6.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime fechaReservada)
+        public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime fechaReserva)
         {
             // Buscar usuario por email
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
             if (usuario == null)
             {
                 TempData["ErrorMessage"] = "Usuario no encontrado.";
-                return RedirectToAction("Index", "Reservas");
+                return RedirectToAction("Create", "Reservas");
+            }
+            else if (fechaReserva < DateTime.Now.AddHours(48)) {
+                TempData["ErrorMessage"] = "La fecha de reservacion tiene que ser mayor a la fecha actual y tener como minimo 48 horas de antelacion.";
+                return RedirectToAction("Create", "Reservas");
             }
 
             // Crear nueva reserva asociada al usuario
@@ -60,7 +64,7 @@ namespace MENU_RESTO_BAR_6.Controllers
                 UsuarioEmail = usuarioEmail,
                 Usuario = usuario,
                 CantPersonas = cantPersonas,
-                FechaReserva = fechaReservada,
+                FechaReserva = fechaReserva,
                 Confirmada = false // Inicia como no confirmada
             };
 
@@ -73,6 +77,11 @@ namespace MENU_RESTO_BAR_6.Controllers
 
         // GET: Reservas/Create
         public IActionResult Create()
+        {
+            return View();
+        }
+
+        public IActionResult Buscar()
         {
             return View();
         }
@@ -180,6 +189,31 @@ namespace MENU_RESTO_BAR_6.Controllers
         private bool ReservaExists(int id)
         {
             return _context.Reservas.Any(e => e.ReservaId == id);
+        }
+
+        [HttpGet]
+        public IActionResult ReservasPorUsuario(string email)
+        {
+            // Validar el correo proporcionado
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["ErrorMessage"] = "El correo electrónico es obligatorio.";
+                return RedirectToAction("Index");
+            }
+
+            // Buscar las reservas asociadas al correo
+            var reservas = _context.Reservas
+                .Where(r => r.UsuarioEmail == email)
+                .ToList();
+
+            if (reservas == null || !reservas.Any())
+            {
+                TempData["ErrorMessage"] = "No se encontraron reservas para el correo proporcionado.";
+                return RedirectToAction("Index");
+            }
+
+            // Retornar la vista con las reservas
+            return View(reservas);
         }
     }
 }

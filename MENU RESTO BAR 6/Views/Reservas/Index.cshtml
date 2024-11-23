@@ -3,14 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-@if (TempData["SuccessMessage"] != null)
-{
-    <script>alert('@TempData["SuccessMessage"]');</script>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <script>alert('@TempData["ErrorMessage"]');</script>
-}
+
 
 <div class="menu-group">
 <h2>Reservas</h2>
@@ -57,10 +50,20 @@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ReservaId">Editar</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReservaId">Cancelar</a>
+                <a href="@Url.Action("CancelarReserva", "Cancelaciones", new { id = item.ReservaId })">Cancelar</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+    <a href="@Url.Action("Buscar", "Reservas")" class="btn btn-primary">Buscar Reserva por Usuario</a>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>alert('@TempData["SuccessMessage"]');</script>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>alert('@TempData["ErrorMessage"]');</script>
+    }
 </div>
