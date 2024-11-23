@@ -44,12 +44,18 @@ namespace MENU_RESTO_BAR_6.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime fechaReservada)
+        public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime FechaReserva)
         {
-        
+            DateTime fechaActual = DateTime.Now;
+            if (FechaReserva < fechaActual.AddHours(48))
+            {
+                Console.WriteLine($"Fecha actual: {fechaActual}");
+                Console.WriteLine($"Fecha reservada: {FechaReserva}");
+                return BadRequest("La reserva debe realizarse con al menos 48 horas de antelación.");
+            }
+           
 
-
-           // Buscar usuario por email
+            // Buscar usuario por email
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
             if (usuario == null)
             {
@@ -62,7 +68,7 @@ namespace MENU_RESTO_BAR_6.Controllers
                 UsuarioEmail = usuarioEmail,
                 Usuario = usuario,
                 CantPersonas = cantPersonas,
-                FechaReserva = fechaReservada,
+                FechaReserva = FechaReserva,
                 Confirmada = false // Inicia como no confirmada
             };
 
@@ -222,8 +228,6 @@ namespace MENU_RESTO_BAR_6.Controllers
 
             await _context.SaveChangesAsync();
 
-            // Opcional: Enviar correo de confirmación de cancelación
-            // await _emailService.EnviarConfirmacionCancelacion(reserva);
 
             TempData["Message"] = "La reserva ha sido cancelada exitosamente.";
             return RedirectToAction(nameof(Index));
