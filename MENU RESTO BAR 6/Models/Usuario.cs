@@ -20,6 +20,9 @@ namespace MENU_RESTO_BAR_6.Models
         
         [Required]
         public string Contraseña { get; set; }
+
+
+        public bool IsCheck { get; set; }
                
     }
 
