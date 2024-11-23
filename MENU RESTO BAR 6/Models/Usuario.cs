@@ -12,6 +12,7 @@ namespace MENU_RESTO_BAR_6.Models
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [MinLength(5, ErrorMessage = "El nombre debe tener al menos 3 caracteres")]
         [MaxLength(30, ErrorMessage = "El nombre no debe superar los 30 caracteres")]
+       
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "La direción es obligatoria")]

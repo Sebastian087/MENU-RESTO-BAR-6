@@ -180,5 +180,54 @@ namespace MENU_RESTO_BAR_6.Controllers
         {
             return _context.Reservas.Any(e => e.ReservaId == id);
         }
+
+        public async Task<IActionResult> Cancelar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var reserva = await _context.Reservas
+                .FirstOrDefaultAsync(m => m.ReservaId == id);
+
+            if (reserva == null)
+            {
+                return NotFound();
+            }
+
+            // Obtener lista de motivos de cancelación
+            ViewBag.Motivos = await _context.MotivosCancelacion.ToListAsync();
+
+            return View(reserva);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmarCancelacion(int id, int motivoId, string? otroMotivo)
+        {
+            var reserva = await _context.Reservas.FindAsync(id);
+
+            if (reserva == null)
+            {
+                return NotFound();
+            }
+
+            reserva.EstaCancelada = true;
+            reserva.MotivoCancelacionId = motivoId;
+            reserva.MotivoCancelacionOtro = otroMotivo;
+
+            await _context.SaveChangesAsync();
+
+            // Opcional: Enviar correo de confirmación de cancelación
+            // await _emailService.EnviarConfirmacionCancelacion(reserva);
+
+            TempData["Message"] = "La reserva ha sido cancelada exitosamente.";
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
+
+
+
+
