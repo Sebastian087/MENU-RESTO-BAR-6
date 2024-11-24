@@ -1,11 +1,11 @@
 ﻿@model MENU_RESTO_BAR_6.Models.Reserva
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Cancelar";
 }
-
 <div class="menu-group">
-    <h4>Reserva</h4>
+<h3>¿Estás seguro que querés cancelar tu reserva?</h3>
+<div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -32,16 +32,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Confirmada)
         </dd>
-      
     </dl>
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ReservaId">Edit</a> |
-<<<<<<< HEAD
-            <a asp-action="Index">Back to List</a>
-
-=======
-        <a asp-action="Index">Volver a la lista</a>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ReservaId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver a la Lista</a>
+    </form>
 </div>
->>>>>>> master
 </div>

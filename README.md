@@ -15,8 +15,8 @@ VALUES
 ('Bagel de Salmón', 'Bagel con queso crema y salmón ahumado.', 6.00, 1),
 
 -- Dulces
-(11, 'Brownie de Chocolate', 'Brownie húmedo de chocolate negro.', 3.00, 2),
-(12, 'Tarta de Manzana', 'Tarta casera con relleno de manzana.', 3.50, 2),
-(13, 'Muffin de Arándanos', 'Muffin esponjoso con arándanos frescos.', 2.50, 2),
-(14, 'Cheesecake', 'Tarta de queso con base de galleta.', 4.00, 2),
-(15, 'Medialuna', 'Medialuna dulce, ideal para acompañar café.', 1.50, 2);
+('Brownie de Chocolate', 'Brownie húmedo de chocolate negro.', 3.00, 2),
+('Tarta de Manzana', 'Tarta casera con relleno de manzana.', 3.50, 2),
+('Muffin de Arándanos', 'Muffin esponjoso con arándanos frescos.', 2.50, 2),
+('Cheesecake', 'Tarta de queso con base de galleta.', 4.00, 2),
+('Medialuna', 'Medialuna dulce, ideal para acompañar café.', 1.50, 2);

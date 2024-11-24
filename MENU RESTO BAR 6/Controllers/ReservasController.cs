@@ -44,22 +44,21 @@ namespace MENU_RESTO_BAR_6.Controllers
         }
 
         [HttpPost]
+
         public IActionResult CrearReserva(string usuarioEmail, int cantPersonas, DateTime FechaReserva)
+
         {
-            DateTime fechaActual = DateTime.Now;
-            if (FechaReserva < fechaActual.AddHours(48))
-            {
-                Console.WriteLine($"Fecha actual: {fechaActual}");
-                Console.WriteLine($"Fecha reservada: {FechaReserva}");
-                return BadRequest("La reserva debe realizarse con al menos 48 horas de antelación.");
-            }
-           
 
             // Buscar usuario por email
             var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == usuarioEmail);
             if (usuario == null)
             {
-                return NotFound("Usuario no encontrado.");
+                TempData["ErrorMessage"] = "Usuario no encontrado.";
+                return RedirectToAction("Create", "Reservas");
+            }
+            else if (FechaReserva < DateTime.Now.AddHours(48)) {
+                TempData["ErrorMessage"] = "La fecha de reservacion tiene que ser mayor a la fecha actual y tener como minimo 48 horas de antelacion.";
+                return RedirectToAction("Create", "Reservas");
             }
 
             // Crear nueva reserva asociada al usuario
@@ -68,15 +67,19 @@ namespace MENU_RESTO_BAR_6.Controllers
                 UsuarioEmail = usuarioEmail,
                 Usuario = usuario,
                 CantPersonas = cantPersonas,
+
                 FechaReserva = FechaReserva,
+
+               
+
                 Confirmada = false // Inicia como no confirmada
             };
 
             // Guardar la reserva en la base de datos
             _context.Reservas.Add(nuevaReserva);
             _context.SaveChanges();
-
-            return Ok("Reserva creada con éxito.");
+            TempData["SuccessMessage"] = "Reserva creada con exito.";
+            return RedirectToAction("Index", "Reservas");
         }
 
         // GET: Reservas/Create
@@ -84,6 +87,15 @@ namespace MENU_RESTO_BAR_6.Controllers
         {
             return View();
         }
+
+
+
+        public IActionResult Buscar()
+        {
+            return View();
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -184,6 +196,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             return _context.Reservas.Any(e => e.ReservaId == id);
         }
 
+
         public async Task<IActionResult> Cancelar(int? id)
         {
             if (id == null)
@@ -222,22 +235,47 @@ namespace MENU_RESTO_BAR_6.Controllers
 
             try
             {
-                
+
                 await _context.SaveChangesAsync();
                 TempData["Message"] = "La reserva ha sido cancelada exitosamente.";
             }
             catch (Exception ex)
             {
-                
+
                 TempData["Error"] = $"Hubo un error al cancelar la reserva: {ex.Message}";
             }
 
 
             return RedirectToAction("Menu", "Home");
         }
+
+        [HttpGet]
+        private IActionResult ReservasPorUsuario(string email)
+        {
+            // Validar el correo proporcionado
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["ErrorMessage"] = "El correo electrónico es obligatorio.";
+                return RedirectToAction("Index");
+            }
+
+            // Buscar las reservas asociadas al correo
+            var reservas = _context.Reservas
+                .Where(r => r.UsuarioEmail == email)
+                .ToList();
+
+            if (reservas == null || !reservas.Any())
+            {
+                TempData["ErrorMessage"] = "No se encontraron reservas para el correo proporcionado.";
+                return RedirectToAction("Index");
+            }
+
+            // Retornar la vista con las reservas
+            return View(reservas);
+
+        }
     }
 }
-
 
 
 
