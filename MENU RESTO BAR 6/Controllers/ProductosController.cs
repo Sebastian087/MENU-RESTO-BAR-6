@@ -49,9 +49,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             return View();
         }
 
-        // POST: Productos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductoId,Nombre,Descripcion,Precio,categoria")] Producto producto)
@@ -81,9 +79,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             return View(producto);
         }
 
-        // POST: Productos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductoId,Nombre,Descripcion,Precio,categoria")] Producto producto)
@@ -153,5 +149,9 @@ namespace MENU_RESTO_BAR_6.Controllers
         {
             return _context.Productos.Any(e => e.ProductoId == id);
         }
+
+        
+
+
     }
 }

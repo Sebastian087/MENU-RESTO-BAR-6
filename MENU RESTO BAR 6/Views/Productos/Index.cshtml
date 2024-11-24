@@ -40,6 +40,7 @@
                 @Html.DisplayFor(modelItem => item.categoria)
             </td>
             <td>
+                        <a asp-action="AgregarAlCarrito" asp-controller="Carrito" asp-route-productoId="@item.ProductoId">Agregar al carrito</a>
                 <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a>
             </td>
         </tr>

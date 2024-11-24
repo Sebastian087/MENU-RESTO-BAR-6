@@ -22,6 +22,34 @@ namespace MENU_RESTO_BAR_6.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CarritoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("CarritoItems");
+                });
+
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.MotivoCancelacion", b =>
                 {
                     b.Property<int>("MotivoCancelacionId")
@@ -137,6 +165,17 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.HasKey("UsuarioId");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
+                {
+                    b.HasOne("MENU_RESTO_BAR_6.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>

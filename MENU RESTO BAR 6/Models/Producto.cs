@@ -5,6 +5,8 @@ namespace MENU_RESTO_BAR_6.Models
 {
     public class Producto
     {
+        
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductoId { get; set; }
