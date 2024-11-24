@@ -4,6 +4,7 @@ using MENU_RESTO_BAR_6.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MENU_RESTO_BAR_6.Migrations
 {
     [DbContext(typeof(CafeDel6DbContext))]
-    partial class CafeDel6DbContextModelSnapshot : ModelSnapshot
+    [Migration("20241123213309_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,8 +25,6 @@ namespace MENU_RESTO_BAR_6.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-<<<<<<< HEAD
-=======
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Cancelacion", b =>
                 {
                     b.Property<int>("CancelacionId")
@@ -47,7 +48,6 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.ToTable("Cancelacion");
                 });
 
->>>>>>> master
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
                 {
                     b.Property<int>("ProductoId")
@@ -72,11 +72,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasKey("ProductoId");
 
-<<<<<<< HEAD
-                    b.ToTable("Productos", (string)null);
-=======
                     b.ToTable("Productos");
->>>>>>> master
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
@@ -107,11 +103,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasIndex("UsuarioId");
 
-<<<<<<< HEAD
-                    b.ToTable("Reservas", (string)null);
-=======
                     b.ToTable("Reservas");
->>>>>>> master
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Usuario", b =>
@@ -138,11 +130,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasKey("UsuarioId");
 
-<<<<<<< HEAD
-                    b.ToTable("Usuarios", (string)null);
-=======
                     b.ToTable("Usuarios");
->>>>>>> master
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>

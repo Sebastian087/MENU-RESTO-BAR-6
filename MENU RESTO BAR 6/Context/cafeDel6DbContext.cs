@@ -19,6 +19,8 @@ namespace MENU_RESTO_BAR_6.Context
 
         public DbSet<Producto> Productos { get; set; }
 
+public DbSet<MENU_RESTO_BAR_6.Models.Cancelacion> Cancelacion { get; set; } = default!;
+
 
     }
 

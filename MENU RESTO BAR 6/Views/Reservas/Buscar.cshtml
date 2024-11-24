@@ -1,0 +1,20 @@
+﻿@model MENU_RESTO_BAR_6.Models.Reserva
+
+@{
+}
+<div class="menu-group">
+<h2>Buscar Reservas por Usuario</h2>
+
+<form asp-action="ReservasPorUsuario" asp-controller="Reservas" method="get">
+    <div class="form-group">
+        <label for="email">Correo Electrónico del Usuario</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">@TempData["ErrorMessage"]</div>
+}
+</div>
