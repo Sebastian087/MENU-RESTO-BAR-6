@@ -46,7 +46,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasKey("ProductoId");
 
-                    b.ToTable("Productos");
+                    b.ToTable("Productos", (string)null);
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
@@ -77,7 +77,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Reservas");
+                    b.ToTable("Reservas", (string)null);
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Usuario", b =>
@@ -104,7 +104,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasKey("UsuarioId");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
