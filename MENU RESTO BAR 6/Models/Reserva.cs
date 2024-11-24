@@ -14,6 +14,7 @@ namespace MENU_RESTO_BAR_6.Models
         public Usuario? Usuario { get; set; }
 
         [Required]
+        [Range(1, 8, ErrorMessage = "La cantidad de personas debe estar entre 1 y 8.")]
         public int CantPersonas { get; set; }
 
         [Required(ErrorMessage = "La fecha y la hora son obligatorias")]

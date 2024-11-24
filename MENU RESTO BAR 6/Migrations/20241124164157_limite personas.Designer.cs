@@ -4,6 +4,7 @@ using MENU_RESTO_BAR_6.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MENU_RESTO_BAR_6.Migrations
 {
     [DbContext(typeof(CafeDel6DbContext))]
-    partial class CafeDel6DbContextModelSnapshot : ModelSnapshot
+    [Migration("20241124164157_limite personas")]
+    partial class limitepersonas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
