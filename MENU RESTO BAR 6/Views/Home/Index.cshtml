@@ -14,5 +14,19 @@
         <h2>Nuestro Menú</h2>
         <a href="@Url.Action("Index", "Productos")" class="btn btn-primary">Mira nuestro menú aqui</a>
     </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
 </div>
 

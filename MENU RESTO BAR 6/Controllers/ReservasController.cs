@@ -220,11 +220,20 @@ namespace MENU_RESTO_BAR_6.Controllers
             reserva.MotivoCancelacionId = motivoId;
             reserva.MotivoCancelacionOtro = otroMotivo;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                
+                await _context.SaveChangesAsync();
+                TempData["Message"] = "La reserva ha sido cancelada exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                
+                TempData["Error"] = $"Hubo un error al cancelar la reserva: {ex.Message}";
+            }
 
 
-            TempData["Message"] = "La reserva ha sido cancelada exitosamente.";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Menu", "Home");
         }
     }
 }
