@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Productos\Carrito.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Productos\Carrito.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\ValidacionReserva.js" />
   </ItemGroup>
 
@@ -19,6 +27,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Carrito\" />
   </ItemGroup>
 
 </Project>

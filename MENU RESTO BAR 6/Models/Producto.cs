@@ -17,9 +17,10 @@ namespace MENU_RESTO_BAR_6.Models
 
         [Required]
         public decimal Precio { get; set; }
+      
 
         [EnumDataType(typeof(Categoria))]
-        public Categoria categoria { get; set; }
+        public Categoria Categoria { get; set; }
     }
 
 }

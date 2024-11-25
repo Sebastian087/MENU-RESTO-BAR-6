@@ -18,6 +18,8 @@ namespace MENU_RESTO_BAR_6.Context
         public DbSet<Reserva> Reservas { get; set; }
 
         public DbSet<Producto> Productos { get; set; }
+
+      
         public DbSet<MotivoCancelacion> MotivosCancelacion { get; set; }
 
 

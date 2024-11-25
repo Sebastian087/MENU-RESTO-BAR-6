@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.categoria)
+                @Html.DisplayNameFor(model => model.Categoria)
             </th>
             <th></th>
         </tr>
@@ -37,10 +37,14 @@
                 @Html.DisplayFor(modelItem => item.Precio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.categoria)
+                @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-                        <a asp-action="AgregarAlCarrito" asp-controller="Carrito" asp-route-productoId="@item.ProductoId">Agregar al carrito</a>
+                
+                <button class="add-to-cart" data-id="@item.ProductoId" data-name="@item.Nombre" data-price="@item.Precio">Agregar al carrito</button>
+        
+                       
+
                 <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a>
             </td>
         </tr>
@@ -48,3 +52,20 @@
     </tbody>
 </table>
 </div>
+<script>
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function () {
+            const id = this.dataset.ProductoId
+            const name = this.dataset.Nombre;
+            const price = this.dataset.Precio;
+
+            fetch('/cart/AddToCart') {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ProductoId, Nombre, Precio })
+            }).then(response => {
+                if (response.ok) alert('Producto agregado al carrito');
+            });
+        });
+    });
+</script>
