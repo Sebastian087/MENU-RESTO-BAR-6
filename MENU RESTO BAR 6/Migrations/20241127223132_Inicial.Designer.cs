@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MENU_RESTO_BAR_6.Migrations
 {
     [DbContext(typeof(CafeDel6DbContext))]
-    [Migration("20241120223601_inicial")]
-    partial class inicial
+    [Migration("20241127223132_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,29 @@ namespace MENU_RESTO_BAR_6.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Cancelacion", b =>
+                {
+                    b.Property<int>("CancelacionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CancelacionId"));
+
+                    b.Property<DateTime>("FechaCancelacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Motivo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReservaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CancelacionId");
+
+                    b.ToTable("Cancelacion");
+                });
+
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
                 {
                     b.Property<int>("ProductoId")
@@ -32,6 +55,9 @@ namespace MENU_RESTO_BAR_6.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductoId"));
+
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -43,9 +69,6 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("categoria")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductoId");
 
@@ -63,8 +86,8 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.Property<int>("CantPersonas")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Confirmada")
-                        .HasColumnType("bit");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaReserva")
                         .HasColumnType("datetime2");
@@ -99,6 +122,9 @@ namespace MENU_RESTO_BAR_6.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsCheck")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

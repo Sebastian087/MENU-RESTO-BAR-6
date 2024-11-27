@@ -1,74 +1,113 @@
 ﻿@model IEnumerable<MENU_RESTO_BAR_6.Models.Reserva>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reservas";
 }
 
+<div class="container">
+    <h2>Gestión de Reservas</h2>
 
-<div class="menu-group">
-<h2>Reservas</h2>
-<p>
-(Si no tienes un usuario debes registrate para hacer una reserva)
-<br/>
-<a href="@Url.Action("Create", "Usuarios")" class="btn btn-primary">Crear Una Cuenta</a>
-<br/>
-<a href="@Url.Action("Create", "Reservas")" class="btn btn-primary">Haz tu reserva aquí</a>
-<br/>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Email de Usuario que reservo
-            </th>
-            <th>
-                Personas Citadas
-            </th>
-            <th>
-                Fecha y Horario
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Confirmada)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CantPersonas)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaReserva)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Confirmada)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservaId">Editar</a> |
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Filtrar Reservas:</label>
+            <select id="reservaFilter" class="form-control">
+                <option value="todas">Todas las Reservas</option>
+                <option value="canceladas">Reservas Canceladas</option>
+                <option value="activas">Reservas Activas</option>
+                <option value="pendientes">Reservas Pendientes</option>
+            </select>
+        </div>
+        <div class="col-md-8 text-right">
+            <a href="@Url.Action("Create", "Reservas")" class="btn btn-primary">Nueva Reserva</a>
+            <a href="@Url.Action("ReservasCanceladas", "Reservas")" class="btn btn-danger">Ver Reservas Canceladas</a>
+        </div>
+    </div>
 
-                <a asp-action="Details" asp-route-id="@item.ReservaId">Detalles</a> |
-                <a asp-action="Cancelar" asp-route-id="@item.ReservaId">Cancelar</a>
-
-                <a href="@Url.Action("CancelarReserva", "Cancelaciones", new { id = item.ReservaId })">Cancelar</a>
-
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-    <a href="@Url.Action("Buscar", "Reservas")" class="btn btn-primary">Buscar Reserva por Usuario</a>
-
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <script>alert('@TempData["SuccessMessage"]');</script>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <script>alert('@TempData["ErrorMessage"]');</script>
-    }
+    <table class="table table-striped" id="reservasTable">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Personas</th>
+                <th>Fecha Reserva</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-estado="@(item.Estado.ToString().ToLower())">
+                    <td>@item.UsuarioEmail</td>
+                    <td>@item.CantPersonas</td>
+                    <td>@item.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        @switch (item.Estado)
+                        {
+                            case EstadoReserva.Pendiente:
+                                <span class="badge bg-warning">Pendiente</span>
+                                break;
+                            case EstadoReserva.Confirmada:
+                                <span class="badge bg-success">Confirmada</span>
+                                break;
+                            case EstadoReserva.Cancelada:
+                                <span class="badge bg-danger">Cancelada</span>
+                                break;
+                        }
+                    </td>
+                    <td>
+                        @switch (item.Estado)
+                        {
+                            case EstadoReserva.Pendiente:
+                                <a href="@Url.Action("ConfirmarReserva", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-success">
+                                    Confirmar
+                                </a>
+                                <a href="@Url.Action("CancelarReserva", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('¿Está seguro de cancelar esta reserva?');">
+                                    Cancelar
+                                </a>
+                                break;
+                            case EstadoReserva.Confirmada:
+                                <a href="@Url.Action("CancelarReserva", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('¿Está seguro de cancelar esta reserva?');">
+                                    Cancelar
+                                </a>
+                                break;
+                            case EstadoReserva.Cancelada:
+                                <a href="@Url.Action("Details", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-info">
+                                    Detalles
+                                </a>
+                                break;
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+<script>
+    document.getElementById('reservaFilter').addEventListener('change', function() {
+        var filtro = this.value;
+        var filas = document.querySelectorAll('#reservasTable tbody tr');
+
+        filas.forEach(function(fila) {
+            switch(filtro) {
+                case 'todas':
+                    fila.style.display = '';
+                    break;
+                case 'canceladas':
+                    fila.style.display = fila.getAttribute('data-estado') === 'cancelada' ? '' : 'none';
+                    break;
+                case 'activas':
+                    fila.style.display = fila.getAttribute('data-estado') === 'confirmada' ? '' : 'none';
+                    break;
+                case 'pendientes':
+                    fila.style.display = fila.getAttribute('data-estado') === 'pendiente' ? '' : 'none';
+                    break;
+            }
+        });
+    });
+</script>

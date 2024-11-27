@@ -22,225 +22,126 @@ namespace MENU_RESTO_BAR_6.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-
-            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Cancelacion", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CancelacionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CancelacionId"));
 
-                    b.Property<int>("Cantidad")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("FechaCancelacion")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("CarritoId")
+                    b.Property<string>("Motivo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ProductoId")
+                    b.Property<int>("ReservaId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CancelacionId");
 
-                    b.HasIndex("ProductoId");
-
-                    b.ToTable("CarritoItems");
+                    b.ToTable("Cancelacion");
                 });
 
-            Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder> buildAction = b =>
-                            {
-                                b.Property<int>("MotivoCancelacionId")
-                                    .ValueGeneratedOnAdd()
-                                    .HasColumnType("int");
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
+                {
+                    b.Property<int>("ProductoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MotivoCancelacionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductoId"));
 
-                                b.Property<string>("Descripcion")
-                                    .IsRequired()
-                                    .HasMaxLength(100)
-                                    .HasColumnType("nvarchar(100)");
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
 
-                                b.HasKey("MotivoCancelacionId");
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                                b.ToTable("MotivosCancelacion");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Cancelacion", b =>
-                                    {
-                                        b.Property<int>("CancelacionId")
-                                            .ValueGeneratedOnAdd()
-                                            .HasColumnType("int");
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
 
-                                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CancelacionId"));
+                    b.HasKey("ProductoId");
 
-                                        b.Property<DateTime>("FechaCancelacion")
-                                            .HasColumnType("datetime2");
+                    b.ToTable("Productos");
+                });
 
-                                        b.Property<string>("Motivo")
-                                            .IsRequired()
-                                            .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
+                {
+                    b.Property<int>("ReservaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                                        b.Property<int>("ReservaId")
-                                            .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservaId"));
 
-                                        b.HasKey("CancelacionId");
+                    b.Property<int>("CantPersonas")
+                        .HasColumnType("int");
 
-                                        b.ToTable("Cancelacion");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
-                                    });
+                    b.Property<DateTime>("FechaReserva")
+                        .HasColumnType("datetime2");
 
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
-                                    {
-                                        b.Property<int>("ProductoId")
-                                            .ValueGeneratedOnAdd()
-                                            .HasColumnType("int");
+                    b.Property<string>("UsuarioEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductoId"));
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
 
-                                        b.Property<string>("Descripcion")
-                                            .IsRequired()
-                                            .HasColumnType("nvarchar(max)");
+                    b.HasKey("ReservaId");
 
-                                        b.Property<string>("Nombre")
-                                            .IsRequired()
-                                            .HasColumnType("nvarchar(max)");
+                    b.HasIndex("UsuarioId");
 
-                                        b.Property<decimal>("Precio")
-                                            .HasColumnType("decimal(18,2)");
+                    b.ToTable("Reservas");
+                });
 
-                                        b.Property<int>("categoria")
-                                            .HasColumnType("int");
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Usuario", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                                        b.HasKey("ProductoId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"));
 
-                                        b.ToTable("Productos");
-                                    });
+                    b.Property<string>("Contraseña")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
-                                    {
-                                        b.Property<int>("ReservaId")
-                                            .ValueGeneratedOnAdd()
-                                            .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservaId"));
+                    b.Property<bool>("IsCheck")
+                        .HasColumnType("bit");
 
-                                        b.Property<int>("CantPersonas")
-                                            .HasColumnType("int");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                                        b.Property<bool>("Confirmada")
-                                            .HasColumnType("bit");
+                    b.HasKey("UsuarioId");
 
-                                        b.Property<bool>("EstaCancelada")
-                                            .HasColumnType("bit");
+                    b.ToTable("Usuarios");
+                });
 
-                                        b.Property<DateTime>("FechaReserva")
-                                            .HasColumnType("datetime2");
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
+                {
+                    b.HasOne("MENU_RESTO_BAR_6.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
 
-                                        b.Property<int?>("MotivoCancelacionId")
-                                            .HasColumnType("int");
-
-                                        b.Property<string>("MotivoCancelacionOtro")
-                                            .HasColumnType("nvarchar(max)");
-
-
-                                        b.Property<DateTime>("FechaReserva")
-                                            .HasColumnType("datetime2");
-
-
-                                        b.Property<string>("UsuarioEmail")
-                                            .IsRequired()
-                                            .HasColumnType("nvarchar(max)");
-
-                                        b.Property<int?>("UsuarioId")
-                                            .HasColumnType("int");
-
-                                        b.HasKey("ReservaId");
-
-
-                                        b.HasIndex("MotivoCancelacionId");
-
-
-                                        b.HasIndex("UsuarioId");
-
-                                        b.ToTable("Reservas");
-                                    });
-
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Usuario", b =>
-                                    {
-                                        b.Property<int>("UsuarioId")
-                                            .ValueGeneratedOnAdd()
-                                            .HasColumnType("int");
-
-                                        SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UsuarioId"));
-
-                                        b.Property<string>("Contraseña")
-                                            .IsRequired()
-                                            .HasColumnType("nvarchar(max)");
-
-                                        b.Property<string>("Email")
-                                            .IsRequired()
-                                            .HasMaxLength(100)
-                                            .HasColumnType("nvarchar(100)");
-
-
-                                        b.Property<bool>("IsCheck")
-                                            .HasColumnType("bit");
-
-                                        b.Property<string>("Nombre")
-                                            .IsRequired()
-                                            .HasMaxLength(30)
-                                            .HasColumnType("nvarchar(30)");
-
-                                        b.HasKey("UsuarioId");
-
-                                        b.ToTable("Usuarios");
-                                    });
-
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
-                            {
-                                b.HasOne("MENU_RESTO_BAR_6.Models.Producto", "Producto")
-                                    .WithMany()
-                                    .HasForeignKey("ProductoId")
-                                    .OnDelete(DeleteBehavior.Cascade)
-                                    .IsRequired();
-
-                                b.Navigation("Producto");
-                            });
-
-                                modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
-                                    {
-                                        b.HasOne("MENU_RESTO_BAR_6.Models.MotivoCancelacion", "MotivoCancelacion")
-                                            .WithMany("Reservas")
-                                            .HasForeignKey("MotivoCancelacionId");
-
-
-                                        modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
-                                    {
-
-                                        b.HasOne("MENU_RESTO_BAR_6.Models.Usuario", "Usuario")
-                                            .WithMany()
-                                            .HasForeignKey("UsuarioId");
-
-
-                                        b.Navigation("MotivoCancelacion");
-
-                                        b.Navigation("Usuario");
-                                    });
-
-                                        modelBuilder.Entity("MENU_RESTO_BAR_6.Models.MotivoCancelacion", b =>
-                                    {
-                                        b.Navigation("Reservas");
-                                    });
-
-                                        b.Navigation("Usuario");
-                                    });
-
+                    b.Navigation("Usuario");
+                });
 #pragma warning restore 612, 618
-                            };
-            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.MotivoCancelacion", buildAction);
-    }
+        }
     }
 }

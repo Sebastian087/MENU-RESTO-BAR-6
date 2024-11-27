@@ -15,6 +15,7 @@ namespace MENU_RESTO_BAR_6.Models
         public Usuario? Usuario { get; set; }
 
         [Required]
+        [Range(1, 8, ErrorMessage = "La cantidad de personas debe estar entre 1 y 8.")]
         public int CantPersonas { get; set; }
 
         [Required(ErrorMessage = "La fecha y la hora son obligatorias")]
@@ -22,11 +23,10 @@ namespace MENU_RESTO_BAR_6.Models
 
 
         public DateTime FechaReserva { get; set; }
-        public bool Confirmada { get; set; }
-        public bool EstaCancelada { get; set; }
-        public string? MotivoCancelacionOtro { get; set; }
-        public int? MotivoCancelacionId { get; set; }
-        public virtual MotivoCancelacion? MotivoCancelacion { get; set; }
+
+        public EstadoReserva Estado { get; set; } = EstadoReserva.Pendiente;
+
+        
     }
    
 }
