@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MENU_RESTO_BAR_6.Migrations
 {
     [DbContext(typeof(CafeDel6DbContext))]
-    [Migration("20241127205344_Inicial")]
+    [Migration("20241127224424_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -64,7 +64,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasKey("CarritoId");
 
-                    b.ToTable("Carrito");
+                    b.ToTable("Carritos");
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
@@ -90,7 +90,7 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.HasIndex("ProductoId");
 
-                    b.ToTable("CarritoItem");
+                    b.ToTable("CarritoItems");
                 });
 
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
@@ -100,6 +100,9 @@ namespace MENU_RESTO_BAR_6.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductoId"));
+
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -111,9 +114,6 @@ namespace MENU_RESTO_BAR_6.Migrations
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("categoria")
-                        .HasColumnType("int");
 
                     b.HasKey("ProductoId");
 
@@ -131,8 +131,8 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.Property<int>("CantPersonas")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Confirmada")
-                        .HasColumnType("bit");
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FechaReserva")
                         .HasColumnType("datetime2");
@@ -167,6 +167,9 @@ namespace MENU_RESTO_BAR_6.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsCheck")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

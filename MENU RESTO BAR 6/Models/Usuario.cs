@@ -12,6 +12,7 @@ namespace MENU_RESTO_BAR_6.Models
         [Required(ErrorMessage = "El nombre es obligatorio")]
         [MinLength(5, ErrorMessage = "El nombre debe tener al menos 5 caracteres")]
         [MaxLength(30, ErrorMessage = "El nombre no debe superar los 30 caracteres")]
+       
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "La direción es obligatoria")]
@@ -21,6 +22,9 @@ namespace MENU_RESTO_BAR_6.Models
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         [MinLength(8, ErrorMessage = "El nombre debe tener al menos 8 caracteres")]
         public string Contraseña { get; set; }
+
+
+        public bool IsCheck { get; set; }
                
     }
 

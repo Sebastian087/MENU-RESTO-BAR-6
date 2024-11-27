@@ -50,7 +50,7 @@ namespace MENU_RESTO_BAR_6.Controllers
                 var reserva = _context.Reservas.FirstOrDefault(r => r.ReservaId == cancelacion.ReservaId);
                 if (reserva != null)
                 {
-                    reserva.Confirmada = false; 
+                    reserva.Estado = EstadoReserva.Cancelada; // Cambiar el estado de la reserva
                 }
 
                 _context.SaveChanges();

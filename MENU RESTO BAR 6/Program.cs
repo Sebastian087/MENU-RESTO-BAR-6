@@ -11,8 +11,12 @@ namespace MENU_RESTO_BAR_6
 
             builder.Services.AddDbContext<CafeDel6DbContext>(
             options => options.UseSqlServer(builder.Configuration["ConnectionString:CafeDel6DbConnection"]));
-
-
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de la sesión
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -31,7 +35,7 @@ namespace MENU_RESTO_BAR_6
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

@@ -32,7 +32,7 @@ else
                     <td>@reserva.UsuarioEmail</td>
                     <td>@reserva.FechaReserva.ToString("yyyy-MM-dd HH:mm")</td>
                     <td>@reserva.CantPersonas</td>
-                    <td>@(reserva.Confirmada ? "Sí" : "No")</td>
+                    <td>@(reserva.Estado == EstadoReserva.Confirmada ? "Sí" : "No")</td>
                 </tr>
             }
         </tbody>

@@ -47,6 +47,7 @@ namespace MENU_RESTO_BAR_6.Controllers
         public IActionResult Create()
         {
             return View();
+
         }
 
         // POST: Usuarios/Create
@@ -86,7 +87,7 @@ namespace MENU_RESTO_BAR_6.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,Nombre,Email,Contraseña")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("UsuarioId,Nombre,Email,Contraseña, IsCheck")] Usuario usuario)
         {
             if (id != usuario.UsuarioId)
             {
