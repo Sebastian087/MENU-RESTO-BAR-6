@@ -35,7 +35,7 @@ namespace MENU_RESTO_BAR_6.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Pasamos el ID de la reserva al formulario de cancelación
+         
             return View(new Cancelacion { ReservaId = id });
         }
 

@@ -20,17 +20,9 @@ namespace MENU_RESTO_BAR_6.Context
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Cancelacion> Cancelacion { get; set; }
 
+        public DbSet<CarritoItem> CarritoItems { get; set; }
 
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
-       
-
-
+        public DbSet<Carrito> Carritos { get; set; }
 
 
 

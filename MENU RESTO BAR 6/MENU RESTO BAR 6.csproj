@@ -9,11 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Productos\Carrito.cshtml.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Productos\Carrito.cshtml" />
+    <Compile Remove="Models\CarritoViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

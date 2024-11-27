@@ -27,6 +27,20 @@ namespace MENU_RESTO_BAR_6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carritos",
+                columns: table => new
+                {
+                    CarritoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Comprado = table.Column<bool>(type: "bit", nullable: false),
+                    FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carritos", x => x.CarritoId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
@@ -59,6 +73,33 @@ namespace MENU_RESTO_BAR_6.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CarritoItems",
+                columns: table => new
+                {
+                    CarritoItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarritoId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarritoItems", x => x.CarritoItemId);
+                    table.ForeignKey(
+                        name: "FK_CarritoItems_Carritos_CarritoId",
+                        column: x => x.CarritoId,
+                        principalTable: "Carritos",
+                        principalColumn: "CarritoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarritoItems_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "ProductoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservas",
                 columns: table => new
                 {
@@ -81,6 +122,16 @@ namespace MENU_RESTO_BAR_6.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarritoItems_CarritoId",
+                table: "CarritoItems",
+                column: "CarritoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarritoItems_ProductoId",
+                table: "CarritoItems",
+                column: "ProductoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservas_UsuarioId",
                 table: "Reservas",
                 column: "UsuarioId");
@@ -93,10 +144,16 @@ namespace MENU_RESTO_BAR_6.Migrations
                 name: "Cancelacion");
 
             migrationBuilder.DropTable(
-                name: "Productos");
+                name: "CarritoItems");
 
             migrationBuilder.DropTable(
                 name: "Reservas");
+
+            migrationBuilder.DropTable(
+                name: "Carritos");
+
+            migrationBuilder.DropTable(
+                name: "Productos");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

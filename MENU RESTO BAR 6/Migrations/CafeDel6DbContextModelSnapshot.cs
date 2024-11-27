@@ -45,6 +45,51 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.ToTable("Cancelacion");
                 });
 
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Carrito", b =>
+                {
+                    b.Property<int>("CarritoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarritoId"));
+
+                    b.Property<bool>("Comprado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CarritoId");
+
+                    b.ToTable("Carritos");
+                });
+
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
+                {
+                    b.Property<int>("CarritoItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarritoItemId"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarritoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarritoItemId");
+
+                    b.HasIndex("CarritoId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("CarritoItems");
+                });
+
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Producto", b =>
                 {
                     b.Property<int>("ProductoId")
@@ -133,6 +178,25 @@ namespace MENU_RESTO_BAR_6.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.CarritoItem", b =>
+                {
+                    b.HasOne("MENU_RESTO_BAR_6.Models.Carrito", "Carrito")
+                        .WithMany("Items")
+                        .HasForeignKey("CarritoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MENU_RESTO_BAR_6.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carrito");
+
+                    b.Navigation("Producto");
+                });
+
             modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Reserva", b =>
                 {
                     b.HasOne("MENU_RESTO_BAR_6.Models.Usuario", "Usuario")
@@ -140,6 +204,11 @@ namespace MENU_RESTO_BAR_6.Migrations
                         .HasForeignKey("UsuarioId");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("MENU_RESTO_BAR_6.Models.Carrito", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
