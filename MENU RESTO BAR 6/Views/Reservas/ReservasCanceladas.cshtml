@@ -1,0 +1,35 @@
+﻿
+	@model IEnumerable<MENU_RESTO_BAR_6.Models.Reserva>
+
+<div class="container">
+    <h2>Reservas Canceladas</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Personas</th>
+                <th>Fecha Reserva</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@item.UsuarioEmail</td>
+                    <td>@item.CantPersonas</td>
+                    <td>@item.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.ReservaId })" class="btn btn-sm btn-info">
+                            Detalles
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("Index", "Reservas")" class="btn btn-secondary">Volver a Reservas</a>
+</div>
+
+

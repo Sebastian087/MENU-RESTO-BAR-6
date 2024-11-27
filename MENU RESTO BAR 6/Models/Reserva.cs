@@ -19,7 +19,10 @@ namespace MENU_RESTO_BAR_6.Models
 
         [Required(ErrorMessage = "La fecha y la hora son obligatorias")]
         public DateTime FechaReserva { get; set; }
-        public bool Confirmada { get; set; }
+
+        public EstadoReserva Estado { get; set; } = EstadoReserva.Pendiente;
+
+        
     }
     
 }

@@ -53,7 +53,8 @@ namespace MENU_RESTO_BAR_6.Controllers
                 TempData["ErrorMessage"] = "Usuario no encontrado.";
                 return RedirectToAction("Create", "Reservas");
             }
-            else if (fechaReserva < DateTime.Now.AddHours(48)) {
+            else if (fechaReserva < DateTime.Now.AddHours(48))
+            {
                 TempData["ErrorMessage"] = "La fecha de reservacion tiene que ser mayor a la fecha actual y tener como minimo 48 horas de antelacion.";
                 return RedirectToAction("Create", "Reservas");
             }
@@ -65,7 +66,7 @@ namespace MENU_RESTO_BAR_6.Controllers
                 Usuario = usuario,
                 CantPersonas = cantPersonas,
                 FechaReserva = fechaReserva,
-                Confirmada = false // Inicia como no confirmada
+                Estado = EstadoReserva.Pendiente // Estado inicial
             };
 
             // Guardar la reserva en la base de datos
@@ -215,5 +216,85 @@ namespace MENU_RESTO_BAR_6.Controllers
             // Retornar la vista con las reservas
             return View(reservas);
         }
+        [HttpGet]
+        public async Task<IActionResult> CancelarReserva(int id)
+        {
+            var reserva = await _context.Reservas.FindAsync(id);
+
+            if (reserva == null)
+            {
+                TempData["ErrorMessage"] = "Reserva no encontrada.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Cambiar el estado de la reserva a cancelada
+            reserva.Estado = EstadoReserva.Cancelada;
+
+            try
+            {
+                _context.Update(reserva);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Reserva cancelada exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al cancelar la reserva: " + ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // Método para mostrar reservas canceladas
+        public async Task<IActionResult> ReservasCanceladas()
+        {
+            var reservasCanceladas = await _context.Reservas
+                .Where(r => r.Estado == EstadoReserva.Cancelada)
+                .ToListAsync();
+
+            return View(reservasCanceladas);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ConfirmarReserva(int id)
+        {
+            var reserva = await _context.Reservas.FindAsync(id);
+
+            if (reserva == null)
+            {
+                TempData["ErrorMessage"] = "Reserva no encontrada.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Verificar si la reserva ya está confirmada
+            if (reserva.Estado == EstadoReserva.Confirmada)
+            {
+                TempData["ErrorMessage"] = "La reserva ya está confirmada.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Verificar que la fecha de reserva sea válida
+            if (reserva.FechaReserva < DateTime.Now.AddHours(24))
+            {
+                TempData["ErrorMessage"] = "No se pueden confirmar reservas con menos de 24 horas de antelación.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Confirmar la reserva
+            reserva.Estado = EstadoReserva.Confirmada;
+
+            try
+            {
+                _context.Update(reserva);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Reserva confirmada exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al confirmar la reserva: " + ex.Message;
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
