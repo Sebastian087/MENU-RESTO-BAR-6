@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\CarritoViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\ValidacionReserva.js" />
   </ItemGroup>
 

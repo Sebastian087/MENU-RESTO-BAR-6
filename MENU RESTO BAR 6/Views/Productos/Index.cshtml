@@ -6,6 +6,8 @@
 <div class="menu-group">
 <h1>Nuestro Menu</h1>
     <a href="@Url.Action("Index", "Reservas")" class="btn btn-primary">Reservar ahora</a>
+    ///
+    <a href="@Url.Action("Index", "Carrito")" class="btn btn-primary">Carrito</a>
 <table class="table">
     <thead>
         <tr>
@@ -41,6 +43,9 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a>
+            </td>
+            <td>
+                <a href="@Url.Action("Agregar", "Carrito", new { productoId = item.ProductoId })" class="btn btn-success btn-sm">Agregar al Carrito</a>
             </td>
         </tr>
 }

@@ -1,0 +1,45 @@
+﻿@model MENU_RESTO_BAR_6.Models.Carrito
+
+
+<div class="menu-group">
+<h1>Tu Carrito</h1>
+
+@if (Model.Items != null && Model.Items.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Producto.Nombre</td>
+                    <td>@item.Producto.Precio.ToString("$")</td>
+                    <td>@item.Cantidad</td>
+                    <td>@(item.Cantidad * item.Producto.Precio) $</td>
+                    <td>
+                        <a href="@Url.Action("Eliminar", "Carrito", new { id = item.CarritoItemId })" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Total: @Model.Items.Sum(i => i.Cantidad * i.Producto.Precio).ToString("C")</p>
+    <a href="@Url.Action("FinalizarCompra", "Carrito", new { carritoId = Model.CarritoId })" class="btn btn-success">Comprar</a>
+}
+else
+{
+    <p>Tu carrito está vacío.</p>
+}
+
+<a asp-action="Index">Volver a la lista</a>
+
+</div>
