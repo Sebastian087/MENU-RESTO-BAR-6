@@ -1,4 +1,4 @@
-INSERT INTO Producto (Nombre, Descripcion, Precio, categoria)
+INSERT INTO Productos (Nombre, Descripcion, Precio, categoria)
 VALUES
 -- Infusiones
 ('Café Americano', 'Café negro clásico, servido caliente.', 3.00, 0),
