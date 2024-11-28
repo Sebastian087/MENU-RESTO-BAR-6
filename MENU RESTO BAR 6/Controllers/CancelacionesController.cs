@@ -32,7 +32,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             if (reserva == null)
             {
                 TempData["ErrorMessage"] = "La reserva no existe.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Reservas");
             }
 
          
@@ -55,10 +55,11 @@ namespace MENU_RESTO_BAR_6.Controllers
 
                 _context.SaveChanges();
                 TempData["SuccessMessage"] = "Reserva cancelada exitosamente.";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Reservas");
             }
 
             return View(cancelacion);
         }
+
     }
 }

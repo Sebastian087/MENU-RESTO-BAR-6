@@ -39,4 +39,12 @@
 }
     </tbody>
 </table>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <script>alert('@TempData["SuccessMessage"]');</script>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>alert('@TempData["ErrorMessage"]');</script>
+    }
 </div>

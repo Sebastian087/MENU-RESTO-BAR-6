@@ -61,16 +61,14 @@
                                    class="btn btn-sm btn-success">
                                     Confirmar
                                 </a>
-                                <a href="@Url.Action("CancelarReserva", new { id = item.ReservaId })"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('¿Está seguro de cancelar esta reserva?');">
+                                <a href="@Url.Action("CancelarReserva","Cancelaciones", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-danger">
                                     Cancelar
                                 </a>
                                 break;
                             case EstadoReserva.Confirmada:
-                                <a href="@Url.Action("CancelarReserva", new { id = item.ReservaId })"
-                                   class="btn btn-sm btn-danger"
-                                   onclick="return confirm('¿Está seguro de cancelar esta reserva?');">
+                                <a href="@Url.Action("CancelarReserva","Cancelaciones", new { id = item.ReservaId })"
+                                   class="btn btn-sm btn-danger">
                                     Cancelar
                                 </a>
                                 break;
@@ -86,6 +84,8 @@
             }
         </tbody>
     </table>
+        <a href="@Url.Action("Buscar", "Reservas")" class="btn btn-primary">Buscar Reserva por Usuario</a>
+
 </div>
 
 <script>
@@ -111,3 +111,13 @@
         });
     });
 </script>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>alert('@TempData["SuccessMessage"]');</script>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>alert('@TempData["ErrorMessage"]');</script>
+}
+

@@ -11,7 +11,7 @@
         <span asp-validation-for="Motivo" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-danger">Cancelar Reserva</button>
+    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de cancelar esta reserva?');">Cancelar Reserva</button>
 </form>
 
 @if (TempData["SuccessMessage"] != null)
