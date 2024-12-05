@@ -136,8 +136,11 @@ footer {
     footer p {
         margin: 0;
     }
+
+    footer a {
+        color: white;
+    }
 .boton-crear p {
-    background-color: black;
     width: 100px;
     height: 20px;
     text-align: center;

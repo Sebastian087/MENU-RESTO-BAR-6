@@ -9,28 +9,63 @@
 
     @if (Model.Any())
     {
-        <table class="table">
+        <table class="table table-striped" id="reservasTable">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Email del Usuario</th>
-                    <th>Cantidad de Personas</th>
-                    <th>Fecha de la Reserva</th>
+                    <th>Email</th>
+                    <th>Personas</th>
+                    <th>Fecha Reserva</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var reserva in Model)
+                @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@reserva.ReservaId</td>
-                        <td>@reserva.UsuarioEmail</td>
-                        <td>@reserva.CantPersonas</td>
-                        <td>@reserva.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
-                        <td>@reserva.Estado</td>
+                    <tr data-estado="@(item.Estado.ToString().ToLower())">
+                        <td>@item.UsuarioEmail</td>
+                        <td>@item.CantPersonas</td>
+                        <td>@item.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
                         <td>
-                            <a href="@Url.Action("Detalle", "Reservas", new { id = reserva.ReservaId })" class="btn btn-info btn-sm">Detalles</a>
+                            @switch (item.Estado)
+                            {
+                                case EstadoReserva.Pendiente:
+                                    <span class="badge bg-warning">Pendiente</span>
+                                    break;
+                                case EstadoReserva.Confirmada:
+                                    <span class="badge bg-success">Confirmada</span>
+                                    break;
+                                case EstadoReserva.Cancelada:
+                                    <span class="badge bg-danger">Cancelada</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            @switch (item.Estado)
+                            {
+                                case EstadoReserva.Pendiente:
+                                    <a href="@Url.Action("ConfirmarReserva", new { id = item.ReservaId })"
+                                       class="btn btn-sm btn-success">
+                                        Confirmar
+                                    </a>
+                                    <a href="@Url.Action("CancelarReserva","Cancelaciones", new { id = item.ReservaId })"
+                                       class="btn btn-sm btn-danger">
+                                        Cancelar
+                                    </a>
+                                    break;
+                                case EstadoReserva.Confirmada:
+                                    <a href="@Url.Action("CancelarReserva","Cancelaciones", new { id = item.ReservaId })"
+                                       class="btn btn-sm btn-danger">
+                                        Cancelar
+                                    </a>
+                                    break;
+                                case EstadoReserva.Cancelada:
+                                    <a href="@Url.Action("Detalle", "Cancelaciones", new { id = item.ReservaId })"
+                                       class="btn btn-sm btn-info">
+                                        Detalles
+                                    </a>
+                                    break;
+                            }
                         </td>
                     </tr>
                 }

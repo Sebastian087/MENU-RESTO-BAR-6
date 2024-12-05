@@ -3,18 +3,20 @@
     ViewData["Title"] = "Home Page";
 }
 
+<img src="~/img/logo.jpg" alt="Fondo de café" style="width: 100%; height: auto; margin-bottom: 20px;" />
+
 <div class="menu-group">
-    <img src="~/img/logo.jpg" alt="Fondo de café" style="width: 100%; height: auto; margin-bottom: 20px;" />
+
 
 <div class="jumbotron text-center">
     <h2>Bienvenido al Café del 6</h2>
     <p>¡Reserva tu mesa, explora nuestro menú y disfruta de una experiencia única!</p>
-    <a href="@Url.Action("Index", "Reservas")" class="btn btn-primary">Reservar ahora</a>
+        <a href="@Url.Action("Index", "Reservas")" class="btn btn-sm btn-info" style="margin-bottom:20px">Reservar ahora </a>
 </div>
 
     <div class="titulo-Menu">
         <h3>Nuestro Menú</h3>
-        <a href="@Url.Action("Index", "Productos")" class="btn btn-primary">Mira nuestro menú aqui</a>
+        <a href="@Url.Action("Index", "Productos")" class="btn btn-sm btn-info" style="margin-bottom:20px">Mira nuestro menú aqui</a>
     </div>
 
     @if (TempData["Message"] != null)
@@ -30,5 +32,6 @@
             @TempData["Error"]
         </div>
     }
+    <img src="~/img/Descuento.jpg" alt="a" />
 </div>
 
