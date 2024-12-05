@@ -1,40 +1,48 @@
-﻿@model IEnumerable<Reserva>
+﻿@model IEnumerable<MENU_RESTO_BAR_6.Models.Reserva>
 
-<h2>Reservas del Usuario</h2>
-
-@if (Model == null)
-{
-    <p>No se encontro el Usuario.</p>
+@{
+    ViewData["Title"] = "Reservas por Usuario";
 }
-else if (!Model.Any())
-{
-    <p>No se encontraron reservas para este usuario.</p>
-}
-else
-{
-    <p>Hay @Model.Count() reservas.</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Fecha Reservada</th>
-                <th>Cantidad de Personas</th>
-                <th>Confirmada</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var reserva in Model)
-            {
+<div class="menu-group">
+    <h2>Reservas realizadas por el usuario</h2>
+
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@reserva.ReservaId</td>
-                    <td>@reserva.UsuarioEmail</td>
-                    <td>@reserva.FechaReserva.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@reserva.CantPersonas</td>
-                    <td>@(reserva.Estado == EstadoReserva.Confirmada ? "Sí" : "No")</td>
+                    <th>#</th>
+                    <th>Email del Usuario</th>
+                    <th>Cantidad de Personas</th>
+                    <th>Fecha de la Reserva</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var reserva in Model)
+                {
+                    <tr>
+                        <td>@reserva.ReservaId</td>
+                        <td>@reserva.UsuarioEmail</td>
+                        <td>@reserva.CantPersonas</td>
+                        <td>@reserva.FechaReserva.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@reserva.Estado</td>
+                        <td>
+                            <a href="@Url.Action("Detalle", "Reservas", new { id = reserva.ReservaId })" class="btn btn-info btn-sm">Detalles</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning mt-3">
+            No se encontraron reservas para el correo especificado.
+        </div>
+    }
+
+    <a href="@Url.Action("Index", "Reservas")" class="btn btn-primary mt-3">Volver al listado</a>
+</div>

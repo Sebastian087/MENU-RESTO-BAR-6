@@ -1,0 +1,14 @@
+﻿@model MENU_RESTO_BAR_6.Models.CancelacionDetalleViewModel
+
+<div class="menu-group">
+    <h1>Detalle de Cancelación</h1>
+    <p><strong>Motivo de la cancelación:</strong> @Model.Cancelacion.Motivo</p>
+    <p><strong>Fecha de cancelación:</strong> @Model.Cancelacion.FechaCancelacion</p>
+
+    <h2>Información de la Reserva</h2>
+    <p><strong>Email del usuario:</strong> @Model.Reserva.UsuarioEmail</p>
+    <p><strong>Cantidad de personas:</strong> @Model.Reserva.CantPersonas</p>
+    <p><strong>Fecha de la reserva:</strong> @Model.Reserva.FechaReserva</p>
+
+    <a href="@Url.Action("Index", "Reservas")" class="btn btn-primary">Volver a Reservas</a>
+</div>

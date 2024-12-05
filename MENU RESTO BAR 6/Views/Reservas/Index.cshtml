@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Reservas";
 }
-
+<div class="menu-group">
 <div class="container">
     <h2>Gestión de Reservas</h2>
 
@@ -73,7 +73,7 @@
                                 </a>
                                 break;
                             case EstadoReserva.Cancelada:
-                                <a href="@Url.Action("Details", new { id = item.ReservaId })"
+                                <a href="@Url.Action("Detalle", "Cancelaciones", new { id = item.ReservaId })"
                                    class="btn btn-sm btn-info">
                                     Detalles
                                 </a>
@@ -86,6 +86,7 @@
     </table>
         <a href="@Url.Action("Buscar", "Reservas")" class="btn btn-primary">Buscar Reserva por Usuario</a>
 
+</div>
 </div>
 
 <script>

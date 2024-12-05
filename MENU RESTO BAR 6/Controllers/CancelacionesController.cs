@@ -61,5 +61,32 @@ namespace MENU_RESTO_BAR_6.Controllers
             return View(cancelacion);
         }
 
+        public IActionResult Detalle(int id)
+        {
+            // Buscar la cancelación
+            var cancelacion = _context.Cancelacion.FirstOrDefault(c => c.ReservaId == id);
+
+            if (cancelacion == null)
+            {
+                return NotFound("No se encontró la cancelación.");
+            }
+
+            // Buscar la reserva asociada
+            var reserva = _context.Reservas.FirstOrDefault(r => r.ReservaId == cancelacion.ReservaId);
+
+            if (reserva == null)
+            {
+                return NotFound("No se encontró la reserva asociada.");
+            }
+
+            var model = new CancelacionDetalleViewModel
+            {
+                Cancelacion = cancelacion,
+                Reserva = reserva
+            };
+
+            return View(model);
+        }
+
     }
 }

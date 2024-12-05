@@ -240,33 +240,28 @@ namespace MENU_RESTO_BAR_6.Controllers
 
                 return RedirectToAction("Menu", "Home");
             }
-
-            [HttpGet]
-            private IActionResult ReservasPorUsuario(string email)
-            {
-                // Validar el correo proporcionado
+              public IActionResult ReservasPorUsuario(string email)
+              {
                 if (string.IsNullOrEmpty(email))
                 {
-                    TempData["ErrorMessage"] = "El correo electrónico es obligatorio.";
-                    return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "El correo electrónico no puede estar vacío.";
+                return RedirectToAction("Index");
                 }
 
-                // Buscar las reservas asociadas al correo
                 var reservas = _context.Reservas
-                    .Where(r => r.UsuarioEmail == email)
-                    .ToList();
+                                   .Where(r => r.UsuarioEmail == email)
+                                   .ToList();
 
-                if (reservas == null || !reservas.Any())
+                if (!reservas.Any())
                 {
-                    TempData["ErrorMessage"] = "No se encontraron reservas para el correo proporcionado.";
-                    return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "No se encontraron reservas para el correo ingresado.";
+                return RedirectToAction("Index");
                 }
 
-                // Retornar la vista con las reservas
                 return View(reservas);
+              }
 
-            }
-            [HttpGet]
+        [HttpGet]
             public async Task<IActionResult> CancelarReserva(int id)
             {
                 var reserva = await _context.Reservas.FindAsync(id);
