@@ -42,14 +42,6 @@
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-                
-               
-        
-                       
-
-                <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a>
-            </td>
-            <td>
                 <a href="@Url.Action("Agregar", "Carrito", new { productoId = item.ProductoId })" class="btn btn-success btn-sm">Agregar al Carrito</a>
             </td>
         </tr>

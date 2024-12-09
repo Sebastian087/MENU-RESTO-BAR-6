@@ -82,7 +82,15 @@ a {
     top: 50%;
     left: 50%;
 }
-
+    .menu-group h1 {
+        color: #6c4a36;
+    }
+    .menu-group h2 {
+        color: #6c4a36;
+    }
+    .menu-group h4 {
+        color: #6c4a36;
+    }
 
 
 .menu-section {
@@ -145,4 +153,8 @@ footer {
     height: 20px;
     text-align: center;
     border-radius: 10px;
+}
+
+nav-item a {
+    color: #6c4a36;
 }

@@ -103,7 +103,7 @@ namespace MENU_RESTO_BAR_6.Controllers
             _context.SaveChanges();
 
            
-            TempData["SuccessMessage"] = "Compra realizada con éxito. Tu nuevo carrito ha sido creado.";
+            TempData["SuccessMessage"] = "Compra realizada con exito. Tu carrito se vaciara.";
             return RedirectToAction("Index", "Carrito", new { carritoId = nuevoCarrito.CarritoId });
         }
 

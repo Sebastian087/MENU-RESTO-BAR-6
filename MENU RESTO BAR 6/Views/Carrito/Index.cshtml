@@ -21,7 +21,7 @@
             {
                 <tr>
                     <td>@item.Producto.Nombre</td>
-                    <td>@item.Producto.Precio.ToString("$")</td>
+                    <td>@(item.Producto.Precio) $</td>
                     <td>@item.Cantidad</td>
                     <td>@(item.Cantidad * item.Producto.Precio) $</td>
                     <td>
@@ -44,3 +44,12 @@ else
     <a href="@Url.Action("Index","Productos")" >Volver a la lista</a>
 
 </div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>alert('@TempData["SuccessMessage"]');</script>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>alert('@TempData["ErrorMessage"]');</script>
+}
