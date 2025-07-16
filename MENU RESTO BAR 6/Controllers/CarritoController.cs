@@ -107,6 +107,27 @@ namespace MENU_RESTO_BAR_6.Controllers
             return RedirectToAction("Index", "Carrito", new { carritoId = nuevoCarrito.CarritoId });
         }
 
+        public IActionResult Eliminar(int id)
+        {
+            
+            var item = _context.CarritoItems
+                .Include(ci => ci.Carrito)
+                .FirstOrDefault(ci => ci.CarritoItemId == id);
+
+            if (item == null)
+            {
+                TempData["ErrorMessage"] = "Item no encontrado.";
+                return RedirectToAction("Index");
+            }
+
+            
+            _context.CarritoItems.Remove(item);
+            _context.SaveChanges();
+
+            TempData["SuccessMessage"] = "Item eliminado del carrito exitosamente.";
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
